@@ -97,7 +97,7 @@ familyData = {"name": ["Alona", "Noa", "Zohar", "Kirstin", "Joel"], "age": [3, 8
 "Joel",41
 ```
 
-## Optional Output Format
+### Other Output Options
 
 The output data format can be specified with a string (e.g., `"json"`) or an object (e.g., `{"format": "python"}`). If no format is specified, SaveData.toLog() and SaveData.toFile() will return a CSV. The format object has the following optional parameters:
 
