@@ -61,7 +61,7 @@ const myData = [
  {"name": "Joel", "age": 41}
 ];
 
-\\ object of equal-length arrays 
+// object of equal-length arrays 
 const myData = {
 "name": ["Alona", "Noa", "Zohar", "Kirstin", "Joel"], 
 "age": [3, 8, 10, 41, 41]
