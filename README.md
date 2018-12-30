@@ -27,14 +27,15 @@ SaveData.toFile(myData); // Saves output as CSV
 SaveData.toFile(myData, "json"); // Saves output as JSON
 SaveData.toFile(myData, "csv"); //Saves output as CSV
 SaveData.toFile(myData, {"format": "csv"); //Saves as CSV
-SaveData.toFile(myData, {"format": "delimited", "delimiter": "!", "filename": "my-family-data");
 // Saves output as "my-family-data.txt" using "!" to separate values
+SaveData.toFile(myData, {"format": "delimited", "delimiter": "!", "filename": "my-family-data");
 SaveData.toFile(myData, {"format": "python"); // Saves output as a Python script
-SaveData.toFile(myData, {"format": "R", "name": "myDataframe");
 // Saves output as an R script creating a dataframe named "myDataframe"
-SaveData.toFile(myData, {"format": "js", "name": "myDataObj");
+SaveData.toFile(myData, {"format": "R", "name": "myDataframe");
 // Saves output as a js script creating an object called "myDataObj"
+SaveData.toFile(myData, {"format": "js", "name": "myDataObj");
 ```
+
 The only required parameter is `dataset`.
 
 ## Input Data
@@ -85,7 +86,13 @@ const myData = [
 let std = SaveData.standardizeStructure(myData);
 // returns
 {
-   "metadata": {"type": "array of objects", "variables":  {"names": ["name", "age"], "types": ["string", "integer"]}},
+   "metadata": {
+     "type": "array of objects", 
+     "variables": {
+       "names": ["name", "age"],
+       "types": ["string", "integer"]
+     }
+   },
    "data": {
       [
         ["Alona", 3],
