@@ -1,8 +1,8 @@
 # SaveData.js
 
-## Browser Javascript Data Export
+## Simple Data Export for Javascript
 
-SaveData is a browser Javascript library for saving datasets for easy export to R, Python, SAS, etc. It has no dependencies.
+SaveData.js is a browser Javascript library for saving datasets for easy export to R, Python, SAS, etc. It has no dependencies.
 
 ## Including in a browser
 
@@ -17,7 +17,9 @@ SaveData.toFile(myDataset, "R");
 
 ## Usage
 
-There are only two methods: `toFile(dataset, format)` & `toLog(dataset, format)`.
+There are two data export methods: `toFile(dataset, format)` & `toLog(dataset, format)`.
+
+A helper function, `standardizeStructure(dataset)`, is also sometimes handy, so that is exposed as well. Its use it described below.
 
 ### SaveData.toFile(dataset, format)
 ```js
@@ -25,12 +27,12 @@ SaveData.toFile(myData); // Saves output as CSV
 SaveData.toFile(myData, "json"); // Saves output as JSON
 SaveData.toFile(myData, "csv"); //Saves output as CSV
 SaveData.toFile(myData, {"format": "csv"); //Saves as CSV
-SaveData.toFile(myData, {"format": "delimited", "delimiter": "!", "filename": "my-family-data"); 
+SaveData.toFile(myData, {"format": "delimited", "delimiter": "!", "filename": "my-family-data");
 // Saves output as "my-family-data.txt" using "!" to separate values
 SaveData.toFile(myData, {"format": "python"); // Saves output as a Python script
-SaveData.toFile(myData, {"format": "R", "name": "myDataframe"); 
+SaveData.toFile(myData, {"format": "R", "name": "myDataframe");
 // Saves output as an R script creating a dataframe named "myDataframe"
-SaveData.toFile(myData, {"format": "js", "name": "myDataObj"); 
+SaveData.toFile(myData, {"format": "js", "name": "myDataObj");
 // Saves output as a js script creating an object called "myDataObj"
 ```
 The only required parameter is `dataset`.
@@ -45,27 +47,55 @@ const myData = ["Alona", "Noa", "Zohar", "Kirstin", "Joel"];
 
 //2d array
 const myData = [
- ["Alona", 3], 
- ["Noa", 8], 
- ["Zohar", 10], 
- ["Kirstin", 41], 
+ ["Alona", 3],
+ ["Noa", 8],
+ ["Zohar", 10],
+ ["Kirstin", 41],
  ["Joel", 41]
 ];
 
 // array of objects with common properties
 const myData = [
- {"name": "Alona", "age": 3}, 
- {"name": "Noa", "age": 8}, 
- {"name": "Zohar", "age": 10}, 
- {"name": "Kirstin", "age": 41}, 
+ {"name": "Alona", "age": 3},
+ {"name": "Noa", "age": 8},
+ {"name": "Zohar", "age": 10},
+ {"name": "Kirstin", "age": 41},
  {"name": "Joel", "age": 41}
 ];
 
-// object of equal-length arrays 
+// object of equal-length arrays
 const myData = {
-"name": ["Alona", "Noa", "Zohar", "Kirstin", "Joel"], 
+"name": ["Alona", "Noa", "Zohar", "Kirstin", "Joel"],
 "age": [3, 8, 10, 41, 41]
 };
+```
+
+### standardizeStructure()
+
+This helper function takes data in one of the four rectangular formats above and returns a `data` object (containing a 2d array) and a `metadata` object:
+
+```js
+const myData = [
+ {"name": "Alona", "age": 3},
+ {"name": "Noa", "age": 8},
+ {"name": "Zohar", "age": 10},
+ {"name": "Kirstin", "age": 41},
+ {"name": "Joel", "age": 41}
+];
+let std = SaveData.standardizeStructure(myData);
+// returns
+{
+   "metadata": {"type": "array of objects", "variables":  {"names": ["name", "age"], "types": ["string", "integer"]}},
+   "data": {
+      [
+        ["Alona", 3],
+        ["Noa", 8],
+        ["Zohar", 10],
+        ["Kirstin", 41],
+        ["Joel", 41]
+      ]
+   }
+}
 ```
 
 ## Output Formats
@@ -74,7 +104,7 @@ With `format = 'R'` or `format = {"format": "R", "name": "familyData", "filename
 
 ```r
 #family-data.R
-#Assigns family dataframe 
+#Assigns family dataframe
 family <- data.frame("name" = character(5), age = int(5))
 family$name <- c("Alona", "Noa", "Zohar", "Kirstin", "Joel")
 family$age <- c(3, 8, 10, 41, 41)
@@ -105,4 +135,3 @@ The output data format can be specified with a string (e.g., `"json"`) or an obj
  - `delimiter`: Value-separator (only relevant if `"format": "delimited"`)
  - `filename`: Name of output file. File extension is not required.
  - `name`: Name of data object in case of R, Python, or js output formats.
-
