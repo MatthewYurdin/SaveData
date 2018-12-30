@@ -1,0 +1,29 @@
+{
+  "version": "0.0.9",
+  "name": "SaveData",
+  "description": "Data Export for Browser Javascript",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MatthewYurdin/SaveData.js"
+  },
+  "keywords": [
+    "save"
+    "dataset",
+    "file"
+    "R",
+    "Python"
+    "dataframe"
+    "csv"
+  ],
+  "author": "Matthew Yurdin <matt.yurdin@gmail.com>",
+  "browser": "https://github.com/MatthewYurdin/SaveData/edit/master/SaveData.js",
+  "bugs": {
+    "url" : "https://github.com/MatthewYurdin/SaveData/issues",
+    "email" : "matt.yurdin@gmail.com"
+  },
+  "contributors": [],
+  "engines": {
+    "node": "*"
+  }
+}
